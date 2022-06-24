@@ -21,12 +21,16 @@ class TotalListViewController: UIViewController {
         return tableView
     }()
     
+    private var hotelList = [Product]()
+    
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
         setupAttribute()
         setupLayout()
+        
+        fetchData(page: 1)
     }
 }
 
@@ -36,7 +40,7 @@ extension TotalListViewController: UITableViewDataSource {
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
     ) -> Int {
-        return 10
+        return hotelList.count
     }
     func tableView(
         _ tableView: UITableView,
@@ -46,9 +50,29 @@ extension TotalListViewController: UITableViewDataSource {
             withIdentifier: ItemTableViewCell.identifier,
             for: indexPath
         ) as? ItemTableViewCell else { return UITableViewCell() }
-        cell.setupView()
+        let product = hotelList[indexPath.row]
+        cell.setupView(product: product, style: .total)
         cell.selectionStyle = .none
         return cell
+    }
+}
+
+// MARK: - Methods
+private extension TotalListViewController {
+    func fetchData(page: Int) {
+        Network().get(page: page) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let hotelInfo):
+                self.updateHotelListAndReload(hotelInfo: hotelInfo)
+            case .failure(let error):
+                print(error, "🐽🐽")
+            }
+        }
+    }
+    func updateHotelListAndReload(hotelInfo: HotelInfo) {
+        hotelList = hotelInfo.data.product
+        totalListTableView.reloadData()
     }
 }
 

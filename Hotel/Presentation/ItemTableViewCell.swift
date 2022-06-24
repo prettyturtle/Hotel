@@ -16,12 +16,14 @@ class ItemTableViewCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.backgroundColor = .lightGray
         imageView.layer.cornerRadius = 8.0
+        imageView.clipsToBounds = true
         return imageView
     }()
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "제목"
         label.font = .systemFont(ofSize: 18.0, weight: .semibold)
+        label.numberOfLines = 2
         return label
     }()
     private lazy var ratingStarImageView: UIImageView = {
@@ -70,9 +72,17 @@ class ItemTableViewCell: UITableViewCell {
     }()
     
     // MARK: - SETUP
-    func setupView() {
+    func setupView(product: Product, style: ItemTableViewCellStyle) {
         setupLayout()
-        bookmarkRegisterDateLabel.isHidden = true
+        
+        updateView(product: product)
+        
+        switch style {
+        case .total:
+            bookmarkRegisterDateLabel.isHidden = true
+        case .bookmark:
+            bookmarkRegisterDateLabel.isHidden = false
+        }
     }
 }
 
@@ -85,6 +95,19 @@ private extension ItemTableViewCell {
 
 // MARK: - UI Methods
 private extension ItemTableViewCell {
+    func updateView(product: Product) {
+        ImageLoader(urlString: product.thumbnail).getImage { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let image):
+                self.thumbnailImageView.image = image
+            case .failure(let error):
+                print("ERROR \(error.localizedDescription)")
+            }
+        }
+        titleLabel.text = product.name
+        ratingLabel.text = product.rate.description
+    }
     func setupLayout() {
         [
             thumbnailImageView,
