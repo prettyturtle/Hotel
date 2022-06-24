@@ -82,7 +82,7 @@ class ItemTableViewCell: UITableViewCell {
     ) {
         setupLayout()
         updateView(product: product)
-        print(userDefaultsManager.getBookmarkList())
+        
         switch style {
         case .total:
             bookmarkRegisterDateLabel.isHidden = true

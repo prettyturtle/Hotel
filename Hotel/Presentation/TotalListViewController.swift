@@ -10,6 +10,15 @@ import SnapKit
 
 class TotalListViewController: UIViewController {
     // MARK: - UI Components
+    private lazy var refreshControl: UIRefreshControl = {
+        let refresh = UIRefreshControl()
+        refresh.addTarget(
+            self,
+            action: #selector(beginRefreshing(_:)),
+            for: .valueChanged
+        )
+        return refresh
+    }()
     private lazy var totalListTableView: UITableView = {
         let tableView = UITableView()
         tableView.rowHeight = 150.0
@@ -18,6 +27,7 @@ class TotalListViewController: UIViewController {
             ItemTableViewCell.self,
             forCellReuseIdentifier: ItemTableViewCell.identifier
         )
+        tableView.refreshControl = refreshControl
         return tableView
     }()
     
@@ -74,6 +84,14 @@ private extension TotalListViewController {
     func updateHotelListAndReload(products: [Product]) {
         hotelList = products
         totalListTableView.reloadData()
+    }
+}
+
+// MARK: - @objc Methods
+private extension TotalListViewController {
+    @objc func beginRefreshing(_ control: UIRefreshControl) {
+        totalListTableView.reloadData()
+        control.endRefreshing()
     }
 }
 
