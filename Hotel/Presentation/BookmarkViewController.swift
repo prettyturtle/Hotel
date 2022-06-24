@@ -32,6 +32,8 @@ class BookmarkViewController: UIViewController {
     }()
     
     private var bookmarkList = [Bookmark]()
+    private let userDefaultsManager = UserDefaultsManager()
+    private var sortType: SortType = .registerDescending
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -40,11 +42,11 @@ class BookmarkViewController: UIViewController {
         setupAttribute()
         setupLayout()
         
-        fetchBookmarkList()
+        fetchBookmarkList(sortType: sortType)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        fetchBookmarkList()
+        fetchBookmarkList(sortType: sortType)
     }
 }
 
@@ -80,14 +82,33 @@ extension BookmarkViewController: UITableViewDataSource {
 // MARK: - ItemTableViewCellDelegate
 extension BookmarkViewController: ItemTableViewCellDelegate {
     func didTapBookmarkButton() {
-        fetchBookmarkList()
+        fetchBookmarkList(sortType: sortType)
     }
 }
 
 // MARK: - Methods
 private extension BookmarkViewController {
-    func fetchBookmarkList() {
-        bookmarkList = UserDefaultsManager().getBookmarkList()
+    func fetchBookmarkList(sortType: SortType) {
+        var currentBookmarkList = userDefaultsManager.getBookmarkList()
+        switch sortType {
+        case .registerDescending:
+            currentBookmarkList.sort {
+                $0.registerDate.compare($1.registerDate) == .orderedDescending
+            }
+        case .registerAscending:
+            currentBookmarkList.sort {
+                $0.registerDate.compare($1.registerDate) == .orderedAscending
+            }
+        case .ratingDescending:
+            currentBookmarkList.sort {
+                $0.product.rate > $1.product.rate
+            }
+        case .ratingAscending:
+            currentBookmarkList.sort {
+                $0.product.rate < $1.product.rate
+            }
+        }
+        bookmarkList = currentBookmarkList
         bookmarkTableView.reloadData()
     }
 }
@@ -95,11 +116,32 @@ private extension BookmarkViewController {
 // MARK: - @objc Methods
 private extension BookmarkViewController {
     @objc func beginRefreshing(_ control: UIRefreshControl) {
-        fetchBookmarkList()
+        fetchBookmarkList(sortType: sortType)
         control.endRefreshing()
     }
     @objc func didTapSortButton() {
-        print("didTapSortButton")
+        let alertController = UIAlertController(
+            title: "정렬 기준 선택",
+            message: nil,
+            preferredStyle: .actionSheet
+        )
+        _ = SortType.allCases.map { type in
+            let action = UIAlertAction(
+                title: type.title,
+                style: .default
+            ) { [weak self] _ in
+                guard let self = self else { return }
+                self.sortType = type
+                self.fetchBookmarkList(sortType: self.sortType)
+            }
+            if sortType == type {
+                action.setValue(UIColor.secondaryLabel, forKey: "titleTextColor")
+            }
+            alertController.addAction(action)
+        }
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true)
     }
 }
 
