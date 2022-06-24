@@ -7,15 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6B47CD4D286583D600C0912F /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B47CD4C286583D600C0912F /* UIColor+.swift */; };
 		6BA3D03528657DDD00A00532 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA3D03428657DDD00A00532 /* AppDelegate.swift */; };
 		6BA3D03728657DDD00A00532 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA3D03628657DDD00A00532 /* SceneDelegate.swift */; };
 		6BA3D03928657DDD00A00532 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA3D03828657DDD00A00532 /* TabBarController.swift */; };
 		6BA3D03E28657DDF00A00532 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6BA3D03D28657DDF00A00532 /* Assets.xcassets */; };
 		6BA3D04128657DDF00A00532 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6BA3D03F28657DDF00A00532 /* LaunchScreen.storyboard */; };
 		6BA3D04A28657F1E00A00532 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6BA3D04928657F1E00A00532 /* SnapKit */; };
+		6BA3D04C28657F9B00A00532 /* TotalListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA3D04B28657F9B00A00532 /* TotalListViewController.swift */; };
+		6BA3D04E2865800300A00532 /* BookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA3D04D2865800300A00532 /* BookmarkViewController.swift */; };
+		6BA3D0502865804A00A00532 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA3D04F2865804A00A00532 /* TabBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6B47CD4C286583D600C0912F /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		6BA3D03128657DDD00A00532 /* Hotel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hotel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BA3D03428657DDD00A00532 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6BA3D03628657DDD00A00532 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -23,6 +28,9 @@
 		6BA3D03D28657DDF00A00532 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6BA3D04028657DDF00A00532 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6BA3D04228657DDF00A00532 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6BA3D04B28657F9B00A00532 /* TotalListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalListViewController.swift; sourceTree = "<group>"; };
+		6BA3D04D2865800300A00532 /* BookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewController.swift; sourceTree = "<group>"; };
+		6BA3D04F2865804A00A00532 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +45,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6B47CD4E2865875800C0912F /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				6BA3D03828657DDD00A00532 /* TabBarController.swift */,
+				6BA3D04B28657F9B00A00532 /* TotalListViewController.swift */,
+				6BA3D04D2865800300A00532 /* BookmarkViewController.swift */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		6B47CD4F2865876900C0912F /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				6BA3D04F2865804A00A00532 /* TabBar.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
+		6B47CD502865877000C0912F /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				6B47CD4C286583D600C0912F /* UIColor+.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		6BA3D02828657DDD00A00532 = {
 			isa = PBXGroup;
 			children = (
@@ -58,7 +92,9 @@
 			children = (
 				6BA3D03428657DDD00A00532 /* AppDelegate.swift */,
 				6BA3D03628657DDD00A00532 /* SceneDelegate.swift */,
-				6BA3D03828657DDD00A00532 /* TabBarController.swift */,
+				6B47CD4E2865875800C0912F /* Presentation */,
+				6B47CD4F2865876900C0912F /* Enum */,
+				6B47CD502865877000C0912F /* Extension */,
 				6BA3D03D28657DDF00A00532 /* Assets.xcassets */,
 				6BA3D03F28657DDF00A00532 /* LaunchScreen.storyboard */,
 				6BA3D04228657DDF00A00532 /* Info.plist */,
@@ -145,6 +181,10 @@
 				6BA3D03928657DDD00A00532 /* TabBarController.swift in Sources */,
 				6BA3D03528657DDD00A00532 /* AppDelegate.swift in Sources */,
 				6BA3D03728657DDD00A00532 /* SceneDelegate.swift in Sources */,
+				6BA3D0502865804A00A00532 /* TabBar.swift in Sources */,
+				6BA3D04C28657F9B00A00532 /* TotalListViewController.swift in Sources */,
+				6BA3D04E2865800300A00532 /* BookmarkViewController.swift in Sources */,
+				6B47CD4D286583D600C0912F /* UIColor+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
