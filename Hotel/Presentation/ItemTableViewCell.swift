@@ -71,17 +71,24 @@ class ItemTableViewCell: UITableViewCell {
         return label
     }()
     
+    var product: Product?
+    private let userDefaultsManager = UserDefaultsManager()
+    
     // MARK: - SETUP
-    func setupView(product: Product, style: ItemTableViewCellStyle) {
+    func setupView(
+        product: Product,
+        style: ItemTableViewCellStyle,
+        bookmarkRegisterDate: Date? = nil
+    ) {
         setupLayout()
-        
         updateView(product: product)
-        
+        print(userDefaultsManager.getBookmarkList())
         switch style {
         case .total:
             bookmarkRegisterDateLabel.isHidden = true
         case .bookmark:
             bookmarkRegisterDateLabel.isHidden = false
+            bookmarkRegisterDateLabel.text = bookmarkRegisterDate?.toString
         }
     }
 }
@@ -90,6 +97,15 @@ class ItemTableViewCell: UITableViewCell {
 private extension ItemTableViewCell {
     @objc func didTapBookmarkButton() {
         print("didTapBookmarkButton")
+        guard let product = product else { return }
+        if bookmarkButton.currentBackgroundImage == UIImage(systemName: "heart") {
+            bookmarkButton.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
+            let item = Bookmark(product: product, isCheck: true, registerDate: Date.now)
+            userDefaultsManager.addBookmark(item: item)
+        } else {
+            bookmarkButton.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
+            userDefaultsManager.removeBookmark(item: product)
+        }
     }
 }
 
@@ -107,6 +123,12 @@ private extension ItemTableViewCell {
         }
         titleLabel.text = product.name
         ratingLabel.text = product.rate.description
+        
+        if userDefaultsManager.getBookmarkList().contains(where: { $0.product == product }) {
+            bookmarkButton.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
+        } else {
+            bookmarkButton.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
+        }
     }
     func setupLayout() {
         [

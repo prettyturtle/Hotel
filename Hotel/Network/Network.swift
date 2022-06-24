@@ -16,8 +16,8 @@ enum NetworkError: Error {
 
 struct Network {
     
-    /// 숙소 정보 API를 이용하여 HotelInfo를 completion으로 전달하는 메서드
-    func get(page: Int, completion: @escaping (Result<HotelInfo, NetworkError>) -> Void) {
+    /// 숙소 정보 API를 이용하여 숙소 정보 리스트(`[Product]`)를 completion으로 전달하는 메서드
+    func get(page: Int, completion: @escaping (Result<[Product], NetworkError>) -> Void) {
         let urlString = "https://www.gccompany.co.kr/App/json/\(page).json"
         guard let url = URL(string: urlString) else {
             completion(.failure(.invalidURL))
@@ -43,7 +43,7 @@ struct Network {
             do {
                 let hotelInfo = try JSONDecoder().decode(HotelInfo.self, from: data)
                 DispatchQueue.main.async {
-                    completion(.success(hotelInfo))
+                    completion(.success(hotelInfo.data.product))
                 }
             } catch {
                 completion(.failure(.jsonError))

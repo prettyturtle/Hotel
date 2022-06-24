@@ -51,6 +51,7 @@ extension TotalListViewController: UITableViewDataSource {
             for: indexPath
         ) as? ItemTableViewCell else { return UITableViewCell() }
         let product = hotelList[indexPath.row]
+        cell.product = product
         cell.setupView(product: product, style: .total)
         cell.selectionStyle = .none
         return cell
@@ -63,15 +64,15 @@ private extension TotalListViewController {
         Network().get(page: page) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success(let hotelInfo):
-                self.updateHotelListAndReload(hotelInfo: hotelInfo)
+            case .success(let hotelList):
+                self.updateHotelListAndReload(products: hotelList)
             case .failure(let error):
                 print(error, "🐽🐽")
             }
         }
     }
-    func updateHotelListAndReload(hotelInfo: HotelInfo) {
-        hotelList = hotelInfo.data.product
+    func updateHotelListAndReload(products: [Product]) {
+        hotelList = products
         totalListTableView.reloadData()
     }
 }
