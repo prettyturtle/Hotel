@@ -150,7 +150,7 @@ private extension BookmarkViewController {
     func setupNavigationBar() {
         navigationItem.title = "찜"
         let rightBarButton = UIBarButtonItem(
-            image: UIImage(systemName: "arrow.up.arrow.down"),
+            image: Icon.arrowUpDown.image,
             style: .plain,
             target: self,
             action: #selector(didTapSortButton)

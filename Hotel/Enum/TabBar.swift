@@ -16,14 +16,14 @@ enum TabBar: CaseIterable {
         case .total:
             return UITabBarItem(
                 title: "전체",
-                image: UIImage(systemName: "house"),
-                selectedImage: UIImage(systemName: "house.fill")
+                image: Icon.house.image,
+                selectedImage: Icon.houseFill.image
             )
         case .bookmark:
             return UITabBarItem(
                 title: "찜",
-                image: UIImage(systemName: "heart"),
-                selectedImage: UIImage(systemName: "heart.fill")
+                image: Icon.heart.image,
+                selectedImage: Icon.heartFill.image
             )
         }
     }

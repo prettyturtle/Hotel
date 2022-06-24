@@ -27,7 +27,7 @@ class ItemTableViewCell: UITableViewCell {
     }()
     private lazy var ratingStarImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "star.fill")
+        imageView.image = Icon.starFill.image
         imageView.tintColor = .systemYellow
         imageView.contentMode = .scaleAspectFit
         return imageView
@@ -50,7 +50,7 @@ class ItemTableViewCell: UITableViewCell {
     }()
     private lazy var bookmarkButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: "heart"), for: .normal)
+        button.setImage(Icon.heart.image, for: .normal)
         button.contentHorizontalAlignment = .fill
         button.contentVerticalAlignment = .fill
         button.imageView?.contentMode = .scaleAspectFit
@@ -97,12 +97,12 @@ private extension ItemTableViewCell {
     @objc func didTapBookmarkButton() {
         print("didTapBookmarkButton")
         guard let product = product else { return }
-        if bookmarkButton.currentBackgroundImage == UIImage(systemName: "heart") {
-            bookmarkButton.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
+        if bookmarkButton.currentBackgroundImage == Icon.heart.image {
+            bookmarkButton.setBackgroundImage(Icon.heartFill.image, for: .normal)
             let item = Bookmark(product: product, isCheck: true, registerDate: Date.now)
             userDefaultsManager.addBookmark(item: item)
         } else {
-            bookmarkButton.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
+            bookmarkButton.setBackgroundImage(Icon.heart.image, for: .normal)
             userDefaultsManager.removeBookmark(item: product)
         }
         delegate?.didTapBookmarkButton()
@@ -125,9 +125,9 @@ private extension ItemTableViewCell {
         ratingLabel.text = product.rate.description
         
         if userDefaultsManager.getBookmarkList().contains(where: { $0.product == product }) {
-            bookmarkButton.setBackgroundImage(UIImage(systemName: "heart.fill"), for: .normal)
+            bookmarkButton.setBackgroundImage(Icon.heartFill.image, for: .normal)
         } else {
-            bookmarkButton.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
+            bookmarkButton.setBackgroundImage(Icon.heart.image, for: .normal)
         }
     }
     func setupLayout() {
