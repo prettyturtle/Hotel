@@ -21,7 +21,6 @@ class ItemTableViewCell: UITableViewCell {
     }()
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "제목"
         label.font = .systemFont(ofSize: 18.0, weight: .semibold)
         label.numberOfLines = 2
         return label
@@ -64,7 +63,6 @@ class ItemTableViewCell: UITableViewCell {
     }()
     private lazy var bookmarkRegisterDateLabel: UILabel = {
         let label = UILabel()
-        label.text = "22.06.24(금) 15:17에 등록"
         label.font = .systemFont(ofSize: 14.0, weight: .regular)
         label.textColor = .secondaryLabel
         label.textAlignment = .right
@@ -73,6 +71,7 @@ class ItemTableViewCell: UITableViewCell {
     
     var product: Product?
     private let userDefaultsManager = UserDefaultsManager()
+    weak var delegate: ItemTableViewCellDelegate?
     
     // MARK: - SETUP
     func setupView(
@@ -106,6 +105,7 @@ private extension ItemTableViewCell {
             bookmarkButton.setBackgroundImage(UIImage(systemName: "heart"), for: .normal)
             userDefaultsManager.removeBookmark(item: product)
         }
+        delegate?.didTapBookmarkButton()
     }
 }
 

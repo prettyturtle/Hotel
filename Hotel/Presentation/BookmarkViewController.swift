@@ -42,6 +42,10 @@ class BookmarkViewController: UIViewController {
         
         fetchBookmarkList()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchBookmarkList()
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -67,7 +71,16 @@ extension BookmarkViewController: UITableViewDataSource {
             , style: .bookmark,
             bookmarkRegisterDate: bookmark.registerDate
         )
+        cell.selectionStyle = .none
+        cell.delegate = self
         return cell
+    }
+}
+
+// MARK: - ItemTableViewCellDelegate
+extension BookmarkViewController: ItemTableViewCellDelegate {
+    func didTapBookmarkButton() {
+        fetchBookmarkList()
     }
 }
 

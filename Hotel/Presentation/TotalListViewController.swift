@@ -42,6 +42,10 @@ class TotalListViewController: UIViewController {
         
         fetchData(page: 1)
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        totalListTableView.reloadData()
+    }
 }
 
 // MARK: - UITableViewDataSource
