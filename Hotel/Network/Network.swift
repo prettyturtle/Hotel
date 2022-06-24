@@ -30,8 +30,7 @@ struct Network {
                 return
             }
             
-            guard let statusCode = (response as? HTTPURLResponse)?.statusCode,
-                  (200..<300) ~= statusCode else {
+            guard (response as? HTTPURLResponse)?.statusCode == 200 else {
                 completion(.failure(.requestError))
                 return
             }
