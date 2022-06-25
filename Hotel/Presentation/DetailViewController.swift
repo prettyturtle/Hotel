@@ -71,6 +71,7 @@ class DetailViewController: UIViewController {
     }()
     
     private let product: Product
+    private let userDefaultsManager = UserDefaultsManager()
     
     // MARK: - Init
     init(product: Product) {
@@ -107,8 +108,19 @@ extension DetailViewController: UIScrollViewDelegate {
 
 // MARK: - @objc Methods
 private extension DetailViewController {
-    @objc func didTapBookmarkButton() {
-        print("didTapBookmarkButton")
+    @objc func didTapBookmarkButton(_ barButton: UIBarButtonItem) {
+        if barButton.image == Icon.heart.image {
+            barButton.image = Icon.heartFill.image
+            let bookmark = Bookmark(
+                product: product,
+                isCheck: true,
+                registerDate: Date.now
+            )
+            userDefaultsManager.addBookmark(item: bookmark)
+        } else {
+            barButton.image = Icon.heart.image
+            userDefaultsManager.removeBookmark(item: product)
+        }
     }
 }
 
@@ -119,7 +131,7 @@ private extension DetailViewController {
             image: Icon.heart.image,
             style: .plain,
             target: self,
-            action: #selector(didTapBookmarkButton)
+            action: #selector(didTapBookmarkButton(_:))
         )
         rightBarButton.tintColor = .mainColor
         navigationItem.rightBarButtonItem = rightBarButton
@@ -127,6 +139,10 @@ private extension DetailViewController {
         navigationController?.navigationBar.tintColor = .label
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
+        
+        if userDefaultsManager.getBookmarkList().contains(where: { $0.product == product }) {
+            rightBarButton.image = Icon.heartFill.image
+        }
     }
     func setupAttribute() {
         view.backgroundColor = .systemBackground
