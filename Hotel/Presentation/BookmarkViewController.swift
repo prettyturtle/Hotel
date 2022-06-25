@@ -22,6 +22,7 @@ class BookmarkViewController: UIViewController {
     private lazy var bookmarkTableView: UITableView = {
         let tableView = UITableView()
         tableView.rowHeight = 150.0
+        tableView.delegate = self
         tableView.dataSource = self
         tableView.register(
             ItemTableViewCell.self,
@@ -47,6 +48,16 @@ class BookmarkViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchBookmarkList(sortType: sortType)
+    }
+}
+
+// MARK: - UITableViewDelegate
+extension BookmarkViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailViewController = DetailViewController(
+            product: bookmarkList[indexPath.row].product
+        )
+        navigationController?.pushViewController(detailViewController, animated: true)
     }
 }
 

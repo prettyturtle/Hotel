@@ -34,7 +34,6 @@ class ItemTableViewCell: UITableViewCell {
     }()
     private lazy var ratingLabel: UILabel = {
         let label = UILabel()
-        label.text = "9.4"
         label.font = .systemFont(ofSize: 16.0, weight: .medium)
         return label
     }()
@@ -51,9 +50,8 @@ class ItemTableViewCell: UITableViewCell {
     private lazy var bookmarkButton: UIButton = {
         let button = UIButton()
         button.setImage(Icon.heart.image, for: .normal)
-        button.contentHorizontalAlignment = .fill
-        button.contentVerticalAlignment = .fill
         button.imageView?.contentMode = .scaleAspectFit
+        button.imageView?.snp.makeConstraints { $0.size.equalTo(32.0) }
         button.addTarget(
             self,
             action: #selector(didTapBookmarkButton),
@@ -97,12 +95,12 @@ private extension ItemTableViewCell {
     @objc func didTapBookmarkButton() {
         print("didTapBookmarkButton")
         guard let product = product else { return }
-        if bookmarkButton.currentBackgroundImage == Icon.heart.image {
-            bookmarkButton.setBackgroundImage(Icon.heartFill.image, for: .normal)
+        if bookmarkButton.currentImage == Icon.heart.image {
+            bookmarkButton.setImage(Icon.heartFill.image, for: .normal)
             let item = Bookmark(product: product, isCheck: true, registerDate: Date.now)
             userDefaultsManager.addBookmark(item: item)
         } else {
-            bookmarkButton.setBackgroundImage(Icon.heart.image, for: .normal)
+            bookmarkButton.setImage(Icon.heart.image, for: .normal)
             userDefaultsManager.removeBookmark(item: product)
         }
         delegate?.didTapBookmarkButton()
@@ -125,9 +123,9 @@ private extension ItemTableViewCell {
         ratingLabel.text = product.rate.description
         
         if userDefaultsManager.getBookmarkList().contains(where: { $0.product == product }) {
-            bookmarkButton.setBackgroundImage(Icon.heartFill.image, for: .normal)
+            bookmarkButton.setImage(Icon.heartFill.image, for: .normal)
         } else {
-            bookmarkButton.setBackgroundImage(Icon.heart.image, for: .normal)
+            bookmarkButton.setImage(Icon.heart.image, for: .normal)
         }
     }
     func setupLayout() {
@@ -159,7 +157,7 @@ private extension ItemTableViewCell {
         bookmarkButton.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(commonSpacing)
             $0.bottom.equalTo(ratingStackView.snp.bottom)
-            $0.size.equalTo(32.0)
+            $0.size.equalTo(44.0)
         }
         bookmarkRegisterDateLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(commonSpacing)

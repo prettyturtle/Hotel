@@ -22,6 +22,7 @@ class TotalListViewController: UIViewController {
     private lazy var totalListTableView: UITableView = {
         let tableView = UITableView()
         tableView.rowHeight = 150.0
+        tableView.delegate = self
         tableView.dataSource = self
         tableView.register(
             ItemTableViewCell.self,
@@ -45,6 +46,14 @@ class TotalListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         totalListTableView.reloadData()
+    }
+}
+
+// MARK: - UITableViewDelegate
+extension TotalListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailViewController = DetailViewController(product: hotelList[indexPath.row])
+        navigationController?.pushViewController(detailViewController, animated: true)
     }
 }
 
