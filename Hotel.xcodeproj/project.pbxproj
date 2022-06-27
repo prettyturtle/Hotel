@@ -20,6 +20,8 @@
 		6B47CD6A286622AF00C0912F /* SortType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B47CD69286622AF00C0912F /* SortType.swift */; };
 		6B47CD6C2866246100C0912F /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B47CD6B2866246100C0912F /* DetailViewController.swift */; };
 		6B47CD6E286625CC00C0912F /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B47CD6D286625CC00C0912F /* Icon.swift */; };
+		6B52A4A12869EADF006B74D2 /* PagingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B52A4A02869EADF006B74D2 /* PagingIndicatorView.swift */; };
+		6B52A4A62869F1A3006B74D2 /* PagingIndicatorViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B52A4A52869F1A3006B74D2 /* PagingIndicatorViewDelegate.swift */; };
 		6BA3D03528657DDD00A00532 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA3D03428657DDD00A00532 /* AppDelegate.swift */; };
 		6BA3D03728657DDD00A00532 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA3D03628657DDD00A00532 /* SceneDelegate.swift */; };
 		6BA3D03928657DDD00A00532 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA3D03828657DDD00A00532 /* TabBarController.swift */; };
@@ -45,6 +47,8 @@
 		6B47CD69286622AF00C0912F /* SortType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortType.swift; sourceTree = "<group>"; };
 		6B47CD6B2866246100C0912F /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		6B47CD6D286625CC00C0912F /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
+		6B52A4A02869EADF006B74D2 /* PagingIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingIndicatorView.swift; sourceTree = "<group>"; };
+		6B52A4A52869F1A3006B74D2 /* PagingIndicatorViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingIndicatorViewDelegate.swift; sourceTree = "<group>"; };
 		6BA3D03128657DDD00A00532 /* Hotel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hotel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BA3D03428657DDD00A00532 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6BA3D03628657DDD00A00532 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -72,11 +76,9 @@
 		6B47CD4E2865875800C0912F /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				6BA3D03828657DDD00A00532 /* TabBarController.swift */,
-				6BA3D04B28657F9B00A00532 /* TotalListViewController.swift */,
-				6B47CD6B2866246100C0912F /* DetailViewController.swift */,
-				6B47CD5128658C2E00C0912F /* ItemTableViewCell.swift */,
-				6BA3D04D2865800300A00532 /* BookmarkViewController.swift */,
+				6B52A4A22869F17E006B74D2 /* ViewController */,
+				6B52A4A32869F191006B74D2 /* Cell */,
+				6B52A4A42869F196006B74D2 /* View */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -131,8 +133,36 @@
 			isa = PBXGroup;
 			children = (
 				6B47CD66286616F100C0912F /* ItemTableViewCellDelegate.swift */,
+				6B52A4A52869F1A3006B74D2 /* PagingIndicatorViewDelegate.swift */,
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		6B52A4A22869F17E006B74D2 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				6BA3D03828657DDD00A00532 /* TabBarController.swift */,
+				6BA3D04B28657F9B00A00532 /* TotalListViewController.swift */,
+				6B47CD6B2866246100C0912F /* DetailViewController.swift */,
+				6BA3D04D2865800300A00532 /* BookmarkViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		6B52A4A32869F191006B74D2 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				6B47CD5128658C2E00C0912F /* ItemTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		6B52A4A42869F196006B74D2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6B52A4A02869EADF006B74D2 /* PagingIndicatorView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		6BA3D02828657DDD00A00532 = {
@@ -249,9 +279,11 @@
 				6BA3D03928657DDD00A00532 /* TabBarController.swift in Sources */,
 				6BA3D03528657DDD00A00532 /* AppDelegate.swift in Sources */,
 				6B47CD5B2865ABB200C0912F /* ImageLoader.swift in Sources */,
+				6B52A4A62869F1A3006B74D2 /* PagingIndicatorViewDelegate.swift in Sources */,
 				6B47CD602865BECC00C0912F /* UserDefaultsManager.swift in Sources */,
 				6B47CD6A286622AF00C0912F /* SortType.swift in Sources */,
 				6B47CD592865A9C100C0912F /* ItemTableViewCellStyle.swift in Sources */,
+				6B52A4A12869EADF006B74D2 /* PagingIndicatorView.swift in Sources */,
 				6B47CD622865C0C100C0912F /* Bookmark.swift in Sources */,
 				6BA3D03728657DDD00A00532 /* SceneDelegate.swift in Sources */,
 				6B47CD67286616F100C0912F /* ItemTableViewCellDelegate.swift in Sources */,

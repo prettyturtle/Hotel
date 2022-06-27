@@ -31,7 +31,14 @@ class TotalListViewController: UIViewController {
         tableView.refreshControl = refreshControl
         return tableView
     }()
+    private lazy var pagingIndicatorView: PagingIndicatorView = {
+        let indicator = PagingIndicatorView()
+        indicator.delegate = self
+        return indicator
+    }()
     
+    private var currentShowPage = 1
+    private let limitCellCount = 20
     private var hotelList = [Product]()
     
     // MARK: - Life Cycle
@@ -54,6 +61,29 @@ extension TotalListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailViewController = DetailViewController(product: hotelList[indexPath.row])
         navigationController?.pushViewController(detailViewController, animated: true)
+    }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        /* Paging
+         한번에 20개 단위로 보여줘야한다. 20, 40, 60, ...
+         17, 37, 57, ...번 째 셀이 보여질 시점에
+         PagingIndicatorView를 테이블 뷰의 footerView로 보여주면 된다.
+         17, 37, 57, ...은 20으로 나누었을 때의 나머지가 17이라는 공통점을 가진다.
+         => indexPath.row % limitCellCount(20) == limitCellCount - 3(17)
+         
+         현재 fetch한 page 번호를 저장하고 있다가
+         새로 fetch할 때 page 번호를 1만큼 증가시킨다.
+         
+         스크롤을 아래로 하다가 다시 위로 올라갈 경우
+         17, 37, 57, ...번 째 셀을 다시 보여주는데
+         PagingIndicatorView를 footerView에 한번씩만 설정하려면
+         현재 보고있는 셀이 몇 번째에 fetch 되었는지 확인하고
+         이를 currentShowPage와 비교하여 footerView를 한번씩만 설정해주면 된다.
+         => currentShowPage == (indexPath.row / limitCellCount) + 1
+         */
+        if indexPath.row % limitCellCount == limitCellCount - 3
+            && currentShowPage == (indexPath.row / limitCellCount) + 1 {
+            tableView.tableFooterView = pagingIndicatorView
+        }
     }
 }
 
@@ -81,6 +111,16 @@ extension TotalListViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - PagingIndicatorViewDelegate
+extension TotalListViewController: PagingIndicatorViewDelegate {
+    func showMoreItem() {
+        fetchData(page: currentShowPage + 1)
+        currentShowPage += 1
+        pagingIndicatorView.stopAnimating()
+        totalListTableView.tableFooterView = nil
+    }
+}
+
 // MARK: - Methods
 private extension TotalListViewController {
     func fetchData(page: Int) {
@@ -95,7 +135,7 @@ private extension TotalListViewController {
         }
     }
     func updateHotelListAndReload(products: [Product]) {
-        hotelList = products
+        hotelList += products
         totalListTableView.reloadData()
     }
 }
