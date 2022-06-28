@@ -114,8 +114,8 @@ extension TotalListViewController: UITableViewDataSource {
 // MARK: - PagingIndicatorViewDelegate
 extension TotalListViewController: PagingIndicatorViewDelegate {
     func showMoreItem() {
-        fetchData(page: currentShowPage + 1)
         currentShowPage += 1
+        fetchData(page: currentShowPage)
         pagingIndicatorView.stopAnimating()
         totalListTableView.tableFooterView = nil
     }
@@ -131,12 +131,24 @@ private extension TotalListViewController {
                 self.updateHotelListAndReload(products: hotelList)
             case .failure(let error):
                 print(error, "🐽🐽")
+                DispatchQueue.main.async {
+                    UIAlertController.showErrorAlert(target: self)
+                    self.refreshWhenPagingFetchError()
+                }
             }
         }
     }
     func updateHotelListAndReload(products: [Product]) {
         hotelList += products
         totalListTableView.reloadData()
+    }
+    func refreshWhenPagingFetchError() {
+        if currentShowPage > 1 {
+            currentShowPage -= 1
+        }
+        if !hotelList.isEmpty {
+            totalListTableView.tableFooterView = pagingIndicatorView
+        }
     }
 }
 

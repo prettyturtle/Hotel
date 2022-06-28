@@ -131,28 +131,23 @@ private extension BookmarkViewController {
         control.endRefreshing()
     }
     @objc func didTapSortButton() {
-        let alertController = UIAlertController(
-            title: "정렬 기준 선택",
-            message: nil,
-            preferredStyle: .actionSheet
-        )
-        _ = SortType.allCases.map { type in
-            let action = UIAlertAction(
-                title: type.title,
-                style: .default
-            ) { [weak self] _ in
-                guard let self = self else { return }
+        let actions: [UIAlertAction] = SortType.allCases.map { type in
+            let action = UIAlertAction(title: type.title, style: .default) { _ in
                 self.sortType = type
                 self.fetchBookmarkList(sortType: self.sortType)
             }
             if sortType == type {
                 action.setValue(UIColor.secondaryLabel, forKey: "titleTextColor")
             }
-            alertController.addAction(action)
+            return action
         }
-        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
-        alertController.addAction(cancelAction)
-        present(alertController, animated: true)
+        
+        UIAlertController.showActionSheet(
+            target: self,
+            title: "정렬 기준 선택",
+            message: nil,
+            actions: actions
+        )
     }
 }
 
