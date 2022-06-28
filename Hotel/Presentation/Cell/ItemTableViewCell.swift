@@ -93,7 +93,6 @@ class ItemTableViewCell: UITableViewCell {
 // MARK: - @objc Methods
 private extension ItemTableViewCell {
     @objc func didTapBookmarkButton() {
-        print("didTapBookmarkButton")
         guard let product = product else { return }
         if bookmarkButton.currentImage == Icon.heart.image {
             bookmarkButton.setImage(Icon.heartFill.image, for: .normal)

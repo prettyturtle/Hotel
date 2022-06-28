@@ -8,9 +8,6 @@
 import UIKit
 import SnapKit
 
-
-
-
 class PagingIndicatorView: UIView {
     
     // MARK: - UI Components

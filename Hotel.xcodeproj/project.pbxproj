@@ -38,6 +38,7 @@
 /* Begin PBXFileReference section */
 		6B31B0FA286B3B1F00B2E606 /* UIAlertAction+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertAction+.swift"; sourceTree = "<group>"; };
 		6B31B0FC286B3B3700B2E606 /* UIAlertController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+.swift"; sourceTree = "<group>"; };
+		6B31B0FE286BC99E00B2E606 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		6B47CD4C286583D600C0912F /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		6B47CD5128658C2E00C0912F /* ItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
 		6B47CD532865A27D00C0912F /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
@@ -174,6 +175,7 @@
 		6BA3D02828657DDD00A00532 = {
 			isa = PBXGroup;
 			children = (
+				6B31B0FE286BC99E00B2E606 /* README.md */,
 				6BA3D03328657DDD00A00532 /* Hotel */,
 				6BA3D03228657DDD00A00532 /* Products */,
 			);
