@@ -14,6 +14,7 @@ enum Icon {
     case heartFill
     case starFill
     case arrowUpDown
+    case building2
     
     var image: UIImage? {
         switch self {
@@ -29,6 +30,8 @@ enum Icon {
             return UIImage(systemName: "star.fill")
         case .arrowUpDown:
             return UIImage(systemName: "arrow.up.arrow.down")
+        case .building2:
+            return UIImage(systemName: "building.2")
         }
     }
 }

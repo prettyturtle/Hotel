@@ -14,7 +14,6 @@ class ItemTableViewCell: UITableViewCell {
     // MARK: - UI Components
     private lazy var thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .lightGray
         imageView.layer.cornerRadius = 8.0
         imageView.clipsToBounds = true
         return imageView
@@ -114,8 +113,8 @@ private extension ItemTableViewCell {
             switch result {
             case .success(let image):
                 self.thumbnailImageView.image = image
-            case .failure(let error):
-                print("ERROR \(error.localizedDescription)")
+            case .failure(_):
+                self.thumbnailImageView.image = Icon.building2.image
             }
         }
         titleLabel.text = product.name

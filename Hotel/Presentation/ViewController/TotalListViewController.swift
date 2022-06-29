@@ -129,8 +129,7 @@ private extension TotalListViewController {
             switch result {
             case .success(let hotelList):
                 self.updateHotelListAndReload(products: hotelList)
-            case .failure(let error):
-                print(error, "🐽🐽")
+            case .failure(_):
                 DispatchQueue.main.async {
                     UIAlertController.showErrorAlert(target: self)
                     self.refreshWhenPagingFetchError()

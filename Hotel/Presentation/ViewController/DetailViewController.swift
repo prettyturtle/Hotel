@@ -26,8 +26,8 @@ class DetailViewController: UIViewController {
             switch result {
             case .success(let image):
                 imageView.image = image
-            case .failure(let error):
-                print("error \(error)")
+            case .failure(_):
+                imageView.image = Icon.building2.image
             }
         }
         return imageView
